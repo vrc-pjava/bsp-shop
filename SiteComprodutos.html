@@ -3,94 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BSP Shop - Ofertas Imperdíveis na Shopee</title>
+    <title>BSP Shop - Ofertas da Shopee</title>
+    <meta name="description" content="As melhores ofertas da Shopee com links de afiliado!">
     <style>
-        body { font-family: Arial, sans-serif; background: linear-gradient(135deg, #6a0dad, #9b59b6); color: #333; margin: 0; padding: 20px; }
-        header { text-align: center; color: white; margin-bottom: 30px; }
-        #search { width: 100%; padding: 10px; margin-bottom: 20px; border: none; border-radius: 5px; font-size: 16px; }
-        #produtos { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
-        .produto { background: white; border-radius: 10px; padding: 15px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: transform 0.3s; }
-        .produto:hover { transform: translateY(-5px); }
-        img { width: 100%; height: 150px; object-fit: cover; border-radius: 5px; }
-        h3 { font-size: 14px; margin: 10px 0; color: #6a0dad; }
-        .preco { font-size: 18px; font-weight: bold; color: #e74c3c; }
-        .btn-comprar { background: #ee4d2d; color: white; padding: 10px; text-decoration: none; border-radius: 5px; display: block; text-align: center; margin-top: 10px; }
-        .btn-comprar:hover { background: #c0392b; }
-        .loading { text-align: center; color: white; font-size: 18px; }
-        @media (max-width: 600px) { #produtos { grid-template-columns: 1fr; } }
-    </style>
-</head>
-<body>
-    <header>
-        <h1>🔥 BSP Shop - Ofertas da Shopee</h1>
-        <p>Melhores produtos com desconto! Ganhe comissões como afiliado.</p>
-    </header>
-    
-    <input type="text" id="search" placeholder="Busque por produtos (ex: celular, roupa)...">
-    
-    <div id="loading" class="loading">Carregando produtos da Shopee... ⏳</div>
-    <div id="produtos"></div>
-
-    <script>
-        const csvUrl = 'https://affiliate.shopee.com.br/api/v1/datafeed/download?id=YWJjZGVmZ2hpamtsbW5vcPNcbnfdFhhQkoz1FtnUm6DtED25ejObtofpYLqHBC0h';
-        const affiliateId = '18300460801'; // Substitua pelo seu ID real!
-        
-        async function carregarProdutos() {
-            try {
-                const response = await fetch(csvUrl);
-                const csvText = await response.text();
-                const linhas = csvText.split('\n').slice(1); // Pula header
-                const produtos = linhas
-                    .filter(linha => linha.trim()) // Remove vazias
-                    .map(linha => {
-                        const cols = linha.split(',');
-                        return {
-                            name: cols[1] || '', // Nome (ajuste índice se necessário)
-                            price: parseFloat(cols[42]) || 0, // Preço (exemplo; verifique no seu CSV)
-                            images: cols[3] ? cols[3].split(';')[0] : '', // Primeira imagem
-                            itemId: cols[0] || '', // Item ID
-                            shopId: cols[2] || ''  // Shop ID
-                        };
-                    })
-                    .filter(p => p.name && p.price > 0) // Só produtos válidos
-                    .slice(0, 50); // Limita a 50 pra carregar rápido
-
-                exibirProdutos(produtos);
-            } catch (error) {
-                document.getElementById('produtos').innerHTML = '<p style="color:white;text-align:center;">Erro ao carregar. Tente atualizar a página! 😅</p>';
-                console.error(error);
-            }
-        }
-
-        function exibirProdutos(produtos) {
-            const container = document.getElementById('produtos');
-            const searchInput = document.getElementById('search');
-            
-            function render(allProds) {
-                container.innerHTML = allProds.map(p => `
-                    <div class="produto">
-                        <img src="${p.images}" alt="${p.name}" onerror="this.src='https://via.placeholder.com/250x150?text=Sem+Imagem'">
-                        <h3>${p.name.substring(0, 50)}...</h3>
-                        <div class="preco">R$ ${p.price.toFixed(2)}</div>
-                        <a href="https://shopee.com.br/product/${p.itemId}/${p.shopId}?affiliate_id=${affiliateId}" target="_blank" class="btn-comprar">Comprar na Shopee 🚀</a>
-                    </div>
-                `).join('');
-            }
-
-            render(produtos); // Inicial
-
-            // Busca em tempo real
-            searchInput.addEventListener('input', (e) => {
-                const termo = e.target.value.toLowerCase();
-                const filtrados = produtos.filter(p => p.name.toLowerCase().includes(termo));
-                render(filtrados);
-            });
-
-            document.getElementById('loading').style.display = 'none';
-        }
-
-        carregarProdutos();
-    </script>
-</body>
-
-</html>
+        :root { --roxo: #6a0dad; --laranja: #ee4d2d; }
+        body { font-family: 'Segoe UI', sans-serif; background: linear-gradient(135deg, #6a0dad, #9b59b6); margin: 0; padding: 0; color: #333; }
+        header { text-align: center; padding: 30px 20px; color: white; }
+        h1 { margin: 0; font-size: 2.2em; }
+        p { margin: 10px 0 0; opacity: 0.9; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+        #search { width: 100%; padding: 14px; font-size: 16px; border: none; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); margin-bottom: 25px; }
+        #produtos { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .produto { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.1); transition: all 0.3s; }
+        .produto:hover { transform: translateY(-8px); box-shadow: 0 12px 20px rgba(0,0,0,0.15); }
+        .img-box { height: 180px; overflow: hidden; background: #f5f5f5; }
+        img { width: 100%; height: 100%; object-fit: contain; }
+        .info { padding: 15px; }
+        h3 { margin: 0 0 8px; font-size: 15px; color: var(--roxo); line-height: 1.4; height: 42px; overflow: hidden; }
+        .preco { font-size: 20px; font-weight: bold; color: #e74c3c; margin: 8px 0; }
+        .btn-compr
