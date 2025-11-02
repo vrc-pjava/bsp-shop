@@ -1,3 +1,4 @@
+```html name=SiteComprodutos.html url=https://github.com/vrc-pjava/bsp-shop/blob/83ec80cfe1ffd475c48ca964c0571b68807bcbfe/SiteComprodutos.html
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -21,4 +22,103 @@
         .info { padding: 15px; }
         h3 { margin: 0 0 8px; font-size: 15px; color: var(--roxo); line-height: 1.4; height: 42px; overflow: hidden; }
         .preco { font-size: 20px; font-weight: bold; color: #e74c3c; margin: 8px 0; }
-        .btn-compr
+        .btn-comprar {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--laranja);
+            color: white;
+            font-weight: bold;
+            padding: 13px 0;
+            border: none;
+            border-radius: 8px;
+            text-decoration: none;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+        .btn-comprar:hover {
+            background: #cf3918;
+        }
+        @media (max-width: 700px) {
+            #produtos { grid-template-columns: 1fr; }
+            .container { padding: 10px; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>BSP Shop</h1>
+        <p>As melhores ofertas da Shopee com links de afiliado!</p>
+    </header>
+    <div class="container">
+        <input type="text" id="search" placeholder="Buscar produto..." onkeyup="filtrarProdutos()">
+        <div id="produtos">
+            <!-- Produtos serão inseridos aqui pelo JavaScript -->
+        </div>
+    </div>
+    <script>
+        // Produtos de exemplo - substitua ou adicione conforme necessário
+        const produtos = [
+            {
+                nome: "Fone Bluetooth Xiaomi Redmi Airdots 2",
+                preco: "R$ 99,90",
+                imagem: "https://cf.shopee.com.br/file/217e4d9c6e1c9e8b5d7f6b7c6fa4f3be",
+                link: "https://shope.ee/9K0jSZwXM4"
+            },
+            {
+                nome: "Smartwatch D20 Fitness",
+                preco: "R$ 49,99",
+                imagem: "https://cf.shopee.com.br/file/24c49e6e8f6d8a6a5c9c8b2f7a1c8e3d",
+                link: "https://shope.ee/6KsaKO4w2R"
+            },
+            {
+                nome: "Camiseta Oversized Masculina",
+                preco: "R$ 39,90",
+                imagem: "https://cf.shopee.com.br/file/8b52b73b0d8b2e4a6cb5b6e9c6d2e3a0",
+                link: "https://shope.ee/7z5ejG2dF3"
+            },
+            {
+                nome: "Caixa de Som Bluetooth Portátil",
+                preco: "R$ 79,90",
+                imagem: "https://cf.shopee.com.br/file/ea3f5b7a6b9c7e7d4b8f0c6d7e5b2f3e",
+                link: "https://shope.ee/8K1hJ2lUQ3"
+            }
+        ];
+
+        function renderizarProdutos(lista) {
+            const container = document.getElementById('produtos');
+            container.innerHTML = '';
+            lista.forEach(produto => {
+                const div = document.createElement('div');
+                div.className = 'produto';
+                div.innerHTML = `
+                    <div class="img-box">
+                        <img src="${produto.imagem}" alt="${produto.nome}">
+                    </div>
+                    <div class="info">
+                        <h3>${produto.nome}</h3>
+                        <div class="preco">${produto.preco}</div>
+                        <a href="${produto.link}" target="_blank" class="btn-comprar">Comprar</a>
+                    </div>
+                `;
+                container.appendChild(div);
+            });
+        }
+
+        function filtrarProdutos() {
+            const termo = document.getElementById('search').value.toLowerCase();
+            const filtrados = produtos.filter(prod =>
+                prod.nome.toLowerCase().includes(termo)
+            );
+            renderizarProdutos(filtrados);
+        }
+
+        // Inicializa com todos os produtos
+        renderizarProdutos(produtos);
+    </script>
+</body>
+</html>
+```
+Esta versão está completa, funcional e pronta para uso. Basta substituir os produtos ou links conforme desejar!
